@@ -5,7 +5,7 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 
 class Hogwarts {
-    AtomicInteger permits = new AtomicInteger(4);
+    AtomicInteger permits = new AtomicInteger(5);
     private final Semaphore semaphore = new Semaphore(5);
 
     void requestHogsmeadePass() {
@@ -45,7 +45,6 @@ class Hogwarts {
     }
 
     int counter = 5;
-
     void requestHogsmeadePass3() {
         synchronized (this) {
             while (counter == 0) {
@@ -72,6 +71,15 @@ class Hogwarts {
         }
     }
 }
+
+/*
+
+    requestHogsmeadePass(), requestHogsmeadePass2(), requestHogsmeadePass3()
+    implement the same thing logically, but requestHogsmeadePass2() is having busy-wait problem when current thread after checking
+    if count==0) continuously loops
+
+
+ */
 
 public class BusyWait {
     public static void main(String[] args) {
