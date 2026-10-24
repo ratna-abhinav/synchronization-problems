@@ -66,7 +66,7 @@ class GeneralRendezvous {
 
 }
 
-public class GeneralRendezvousDLSol {
+public class GeneralRendezvousDLSolUseSynchronized {
     public static void main(String[] args) {
         GeneralRendezvous r = new GeneralRendezvous();
         Counter counter = new Counter();
