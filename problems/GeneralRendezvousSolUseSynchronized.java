@@ -1,6 +1,8 @@
 package problems;
 
 
+import problems.common.Counter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +33,7 @@ class RendezvousAndCriticalPoint {
     }
 }
 
-public class GeneralRendezvous2 {
+public class GeneralRendezvousSolUseSynchronized {
     public static void main(String[] args) {
         int n = 5;
         Counter counter = new Counter();

@@ -6,21 +6,19 @@ package problems;
     -> rendezvous
     -> critical section
 
-    There are n threads. Requirement is that no thread executes critical section
-    until after all threads have executed rendezvous. Multiple threads can enter the critical
-    section though.
+    There are n threads. Requirement is that no thread can enter critical section till all the
+    n threads execute and reach a rendezvous point
+    Multiple threads can enter the critical section at the same time though.
 
  */
+
+import problems.common.Counter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
-class Counter {
-    int counter = 0;
-}
-
-public class GeneralRendezvous {
+public class GeneralRendezvousSolUseSemaphore {
 
     static Semaphore a = new Semaphore(1);
     static Semaphore b = new Semaphore(0);
