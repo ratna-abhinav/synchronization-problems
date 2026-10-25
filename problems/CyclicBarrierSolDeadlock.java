@@ -23,7 +23,7 @@ import problems.common.Counter;
 import java.util.ArrayList;
 import java.util.List;
 
-class RendezvousWaitTillCriticalSection extends RendezvousAndCriticalPoint{
+class RendezvousWaitTillCriticalSection extends RendezvousAndCriticalPoint {
 
     @Override
     void enterCriticalPoint(Counter counter) {
@@ -65,7 +65,7 @@ class RendezvousWaitTillCriticalSection extends RendezvousAndCriticalPoint{
     }
 }
 
-public class GeneralRendezvousDeadlock {
+public class CyclicBarrierSolDeadlock {
 
     public static void main(String[] args) {
         Counter counter = new Counter();
