@@ -1,7 +1,7 @@
-package problems;
+package patterns;
 
 
-import problems.common.Barrier;
+import patterns.common.Barrier;
 
 import java.util.ArrayList;
 import java.util.List;

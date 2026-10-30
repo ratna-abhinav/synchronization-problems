@@ -1,7 +1,7 @@
-package problems;
+package patterns;
 
 
-import problems.common.Counter;
+import patterns.common.Counter;
 
 import java.util.ArrayList;
 import java.util.List;

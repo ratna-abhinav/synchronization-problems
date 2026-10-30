@@ -1,4 +1,4 @@
-package problems;
+package patterns;
 
 /*
 
@@ -18,7 +18,7 @@ package problems;
     when counter was set to 0 and this happens only when all threads have come out of critical section
 */
 
-import problems.common.Counter;
+import patterns.common.Counter;
 
 import java.util.ArrayList;
 import java.util.List;

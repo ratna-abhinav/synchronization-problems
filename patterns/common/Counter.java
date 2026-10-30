@@ -1,4 +1,4 @@
-package problems.common;
+package patterns.common;
 
 public class Counter {
     public int counter = 0;

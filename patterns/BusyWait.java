@@ -1,7 +1,6 @@
-package problems;
+package patterns;
 
 
-import java.util.Queue;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 

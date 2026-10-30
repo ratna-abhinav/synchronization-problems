@@ -1,4 +1,4 @@
-package problems.common;
+package patterns.common;
 
 import java.util.concurrent.Semaphore;
 
