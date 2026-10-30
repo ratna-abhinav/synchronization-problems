@@ -9,7 +9,7 @@ class ExclusiveQueue {
     private final Semaphore rendezvous = new Semaphore(0);
     private int leadersWaiting = 0, followersWaiting = 0;
 
-    void leader() throws InterruptedException {
+    void leaderArrived() throws InterruptedException {
         mutex.acquire();
         if (followersWaiting > 0) {
             followersWaiting--;
@@ -24,7 +24,7 @@ class ExclusiveQueue {
         mutex.release();  // only release mutex once both the follower and leader have danced
     }
 
-    void follower() throws InterruptedException {
+    void followerArrived() throws InterruptedException {
         mutex.acquire();
         if (leadersWaiting > 0) {
             leadersWaiting--;
@@ -45,4 +45,26 @@ class ExclusiveQueue {
 
 
 public class ExclusiveQueueProblem {
+    public static void main(String[] args) throws InterruptedException {
+        ExclusiveQueue ballRoom = new ExclusiveQueue();
+        int couples = 4;
+        for (int i = 0; i < couples; i++) {
+            Thread leader = new Thread(() -> {
+                try {
+                    ballRoom.leaderArrived();
+                } catch (Exception e) {
+                }
+            }, "Leader-" + i);
+
+            Thread follower = new Thread(() -> {
+                try {
+                    ballRoom.followerArrived();
+                } catch (Exception e) {
+                }
+            }, "Follower-" + i);
+
+            leader.start();
+            follower.start();
+        }
+    }
 }
