@@ -16,31 +16,31 @@ class UnboundedBuffer {
         queue = new LinkedList<>();
     }
 
-    void produce() {
+    void produce() throws InterruptedException {
+        mutex.acquire();
         try {
-            mutex.acquire();
             int val = ThreadLocalRandom.current().nextInt(1, 100);
             System.out.println(Thread.currentThread().getName() + " is producing " + val);
             queue.offer(val);
-        } catch (Exception e) {
-            Thread.currentThread().interrupt();
         } finally {
             mutex.release();
         }
         availableItems.release();
     }
 
-    void consume() {
+    void consume() throws InterruptedException {
+        availableItems.acquire();
         try {
-            availableItems.acquire();
             mutex.acquire();
-
-            Integer val = queue.poll();
-            System.out.println(Thread.currentThread().getName() + " is consuming " + val);
-        } catch (Exception e) {
-            Thread.currentThread().interrupt();
-        } finally {
-            mutex.release();
+            try {
+                Integer val = queue.poll();
+                System.out.println(Thread.currentThread().getName() + " is consuming " + val);
+            } finally {
+                mutex.release();
+            }
+        } catch (Throwable t) {
+            availableItems.release();
+            throw t;
         }
     }
 }
