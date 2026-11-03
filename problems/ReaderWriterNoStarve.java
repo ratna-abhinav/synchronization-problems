@@ -11,8 +11,8 @@ class ReaderWriter2 {
     private int value;
 
     public ReaderWriter2() {
-        mayEnter = new Semaphore(1);
-        turnstile = new Semaphore(1);
+        mayEnter = new Semaphore(1, true);
+        turnstile = new Semaphore(1, true);
         readLightSwitch = new LightSwitch();
         value = 0;
     }
@@ -35,19 +35,16 @@ class ReaderWriter2 {
         turnstile.acquire();
         try {
             mayEnter.acquire();
-        } catch (Throwable t) {
-            turnstile.release();
-            throw t;
-        }
-
-        try {
-            value = x;
-            System.out.println(Thread.currentThread().getName() + " entering critical section :>");
-            Thread.sleep(100);
-            System.out.println(Thread.currentThread().getName() + " exiting critical section :>");
+            try {
+                value = x;
+                System.out.println(Thread.currentThread().getName() + " entering critical section :>");
+                Thread.sleep(100);
+                System.out.println(Thread.currentThread().getName() + " exiting critical section :>");
+            } finally {
+                mayEnter.release();
+            }
         } finally {
             turnstile.release();
-            mayEnter.release();
         }
     }
 }
