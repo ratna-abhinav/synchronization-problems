@@ -18,11 +18,9 @@ class ReaderWriter2 {
     }
 
     public void read() throws InterruptedException {
-        try {
-            turnstile.acquire();
-        } finally {
-            turnstile.release();
-        }
+        turnstile.acquire();
+        turnstile.release();
+
         readLightSwitch.lock(mayEnter);
         try {
             System.out.println(Thread.currentThread().getName() + " entering critical section. Value = " + value);
@@ -37,14 +35,20 @@ class ReaderWriter2 {
         turnstile.acquire();
         try {
             mayEnter.acquire();
+        } catch (Throwable t) {
+            turnstile.release();
+            throw t;
+        }
+
+        try {
             value = x;
             System.out.println(Thread.currentThread().getName() + " entering critical section :>");
             Thread.sleep(100);
             System.out.println(Thread.currentThread().getName() + " exiting critical section :>");
         } finally {
             turnstile.release();
+            mayEnter.release();
         }
-        mayEnter.release();
     }
 }
 
